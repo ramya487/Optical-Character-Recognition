@@ -28,22 +28,17 @@ def upload_image_option():
 
         threshold = 0.25
 
-        # Create a text file to write the detected text
-        with open("detected_text.txt", "w") as text_file:
-            for t_, t in enumerate(text_):
-                bbox, text, score = t
+        print(text_)
+        for t_, t in enumerate(text_):
+            bbox, text, score = t
 
-                if score > threshold:
-                    cv2.rectangle(img, bbox[0], bbox[2], (0, 255, 0), 5)
-                    cv2.putText(img, text, bbox[0], cv2.FONT_HERSHEY_COMPLEX, 0.65, (255, 0, 0), 2)
-
-                    # Write the detected text to the text file
-                    text_file.write(f"Text: {text}\n")
+            if score > threshold:
+                cv2.rectangle(img, bbox[0], bbox[2], (0, 255, 0), 5)
+                cv2.putText(img, text, bbox[0], cv2.FONT_HERSHEY_COMPLEX, 0.65, (255, 0, 0), 2)
+                print(f"Text: {text}\n")
 
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         plt.show()
-
-    print("Detected text has been written to 'detected_text.txt'.")
 
 # Function to handle the 'Live Feed' option
 def live_feed_option():
@@ -96,12 +91,8 @@ def live_feed_option():
     camera.release()
     cv2.destroyAllWindows()
 
-    # Write the detected text to a file when 'q' is pressed
-    if detected_text:
-        with open("detected_text.txt", "w") as text_file:
-            text_file.write(detected_text)
-
-    print("Detected text has been written to 'detected_text.txt'.")
+    # Print text to console when 'q' is pressed
+    print(detected_text)
 
 def main():
     # Create a GUI for the user to choose an option
